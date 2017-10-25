@@ -36,7 +36,15 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+						<li class="{{ Request::is('posts*') ? 'active' : '' }}"><a href="{{route('posts.index')}}">Blog</a></li>
+						@auth
+						<li class="dropdown {{ Request::is('admin*') ? 'active' : '' }}">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li class="{{ Request::is('admin/posts*') ? 'active' : '' }}"><a href="{{route('admin.posts.index')}}">Posts</a></li>
+							</ul>
+						</li>
+						@endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -44,11 +52,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="{{ route('register') }}">Cadastrar</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->nome }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
@@ -56,7 +64,7 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Sair
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -70,8 +78,40 @@
                 </div>
             </div>
         </nav>
+		@if ($message = Session::get('success'))
+		<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+			<i class="fa fa-check-circle" aria-hidden="true"></i> <strong> SUCESSO! </strong> {{ $message }}
+		</div>
+		@elseif ($message = Session::get('danger'))
+		<div class="alert alert-danger">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+			<i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong> ERRO: </strong> {{ $message }}
+		</div>
+		@elseif ($message = Session::get('warning'))
+		<div class="alert alert-warning">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+			<i class="fa fa-minus-circle" aria-hidden="true"></i><strong> ATENÇÃO! </strong> {{ $message }}
+		</div>
+		@elseif ($message = Session::get('info'))
+		<div class="alert alert-info">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+			<i class="fa fa-info-circle" aria-hidden="true"></i><strong> INFO: </strong> {{ $message }}
+		</div>
+		@endif
+		<div class="container">
+		    <div class="row">
+		        <div class="col-md-8 col-md-offset-2">
+		            <div class="panel panel-default">
+		                <div class="panel-heading">@yield('titulo')</div>
 
-        @yield('content')
+		                <div class="panel-body">
+		                    @yield('content')
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
     </div>
 
     <!-- Scripts -->

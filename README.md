@@ -10,12 +10,14 @@ Baixe o este repositório como ZIP ou rode o comando Git Clone.
 Para começar, copie o arquivo `.env.example` para o `.env` (detalhe, no  Windows Explorer não funciona, crie direto dentro do editor de sua preferência, recomendo o Atom (https://atom.io).
 Após criado o arquivo, edite a parte do banco de dados, informando os dados de acesso.
 
-> DB_CONNECTION=mysql
-> DB_HOST=127.0.0.1
-> DB_PORT=3306
-> DB_DATABASE=minicursolaravel
-> DB_USERNAME=root
-> DB_PASSWORD=
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=minicursolaravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
 Após configurar o banco de dados é hora de abrir o Prompt de Comando (cmd) dentro da pasta onde você extraiu os arquivos do sistema.
 
